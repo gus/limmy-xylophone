@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Limmy Xylophone</title>
+    <style type="text/css">
+      body { margin: 0; padding: 0; }
+      audio { display: none; }
+
+      #keys div { width: 20%; height: 500px; position: relative; float: left; }
+      #key-0 { background-color: rgb(0, 200, 250); }
+      #key-1 { background-color: rgb(255, 255, 0); }
+      #key-2 { background-color: rgb(0, 255, 0); }
+      #key-3 { background-color: rgb(250, 0, 150); }
+      #key-4 { background-color: rgb(14, 64, 146); }
+    </style>
+  </head>
+  <body>
+    <div id="keys">
+      <div id="key-0">&nbsp;</div>
+      <div id="key-1">&nbsp;</div>
+      <div id="key-2">&nbsp;</div>
+      <div id="key-3">&nbsp;</div>
+      <div id="key-4">&nbsp;</div>
+    </div>
+    <audio controls="" preload="none" src="" autoplay="autoplay">Whoops!</audio>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var words = ["you", "are", "a", "fucking", "cunt"], player = $("audio");
+
+        var randomKey = function () { return parseInt((Math.random() * 100) % 5, 10); };
+
+        var playItForward = function (idx) {
+          setTimeout(function () {
+            var thisKey = randomKey();
+            $("#key-" + thisKey).animate({opacity: 0.5}, 250).animate({opacity: 1.0}, 250);
+
+            player.attr({"src":"./sounds/" + words[idx] + thisKey + ".mp3", "autoplay":"autoplay"});
+
+            if (idx < 4) { playItForward((idx + 1) % 5); }
+            else { playItForward(0); }
+          }, 750);
+        }; // playItForward
+
+        playItForward(0);
+      });
+    </script>
+  </body>
+</html>
+
